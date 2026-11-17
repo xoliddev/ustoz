@@ -63,6 +63,18 @@ export async function listStudents(tx: Sql, today: string, m: Member): Promise<S
 
 export function studentsService(ctx: Ctx) {
   return {
+    /** Student: themselves; parent: their children (with groups) — the child switcher and the bot use it. */
+    async 'family.children'(a: Actor, _i: Record<string, never>) {
+      return ctx.as(a, 'self.read', async (tx, m) => {
+        const ids = await ctx.ownStudents(tx, m);
+        return tx.query<{ id: string; fullName: string; groups: string[] }>(
+          `select s.id, s.full_name, coalesce((select array_agg(g.name order by g.name) from enrollments e join groups g on g.id = e.group_id where e.student_id = s.id and e.left_on is null), '{}') as groups
+           from students s where s.id = any($1::uuid[]) order by s.full_name`,
+          [ids],
+        );
+      });
+    },
+
     async 'students.list'(a: Actor, _i: Record<string, never>) {
       return ctx.as(a, 'students.read', (tx, m) => listStudents(tx, ctx.today(), m));
     },

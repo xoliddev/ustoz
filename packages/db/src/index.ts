@@ -4,6 +4,7 @@
  */
 import { monthOf, type Role, type TelegramUser } from '@ustoz/core';
 import { attendanceService } from './services/attendance';
+import { botService } from './services/bot';
 import { billingService } from './services/billing';
 import { runMonth } from './services/billing-core';
 import { Ctx, SYSTEM, type Actor, type BackendDeps } from './services/ctx';
@@ -27,6 +28,7 @@ export type { StudentListRow } from './services/students';
 export type { LeadRow } from './services/leads';
 export type { Receipt } from './services/billing';
 export type { PayrollRow } from './services/payroll';
+export type { BotState } from './services/bot';
 export { sqlLedger };
 export { computeInvoice } from './services/billing-core';
 
@@ -43,6 +45,7 @@ export function createBackend(deps: BackendDeps) {
     ...learningService(ctx),
     ...testsService(ctx),
     ...insightsService(ctx),
+    ...botService(ctx),
   };
   const ledger = sqlLedger(ctx);
   return {

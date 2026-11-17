@@ -95,7 +95,7 @@ export function insightsService(ctx: Ctx) {
     },
 
     /** Bot messages addressed to the caller (the demo's simulated chat reads its feed from here). */
-    async 'notifications.mine'(a: Actor, i: { since?: string | null; personId?: string | null }) {
+    async 'notifications.mine'(a: Actor, i: { since?: string | null }) {
       return ctx.as(a, 'outbox.read', async (tx, m) => {
         const pid = m.personId;
         if (!pid) return [];
