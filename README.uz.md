@@ -142,7 +142,19 @@ TEST_DATABASE_URL=postgres://… npm test     # baza, API va bot testlari Postgr
 npm run build:demo && PW_CHANNEL=chrome npm run e2e   # Playwright, 1440 px va 375 px
 ```
 
-<!-- TESTS-TABLE -->
+| To'plam | Testlar | Nimani tekshiradi |
+|---|---:|---|
+| core | 40 | pul, qayta hisoblash, chegirmalar, to'lovni taqsimlash, ish haqi, jadval to'qnashuvi (xossaviy testlar), sanalar, initData HMAC, MD5, ruxsatlar, xavf, voronka, test generatori |
+| db | 12 | servislar oqimi boshidan oxirigacha, har bir jadvalda RLS, boshqa markazga kirishga urinishlar (PGlite; CI'da PostgreSQL 16 da ham) |
+| api | 12 | Telegram orqali kirish (soxta / eskirgan / boshqa bot), ruxsatlar, validatsiya, CORS, so'rovlar chegarasi, Payme / Click / Uzum webhook'lari, Telegram maxfiy tokeni, muhit tekshiruvi |
+| payments | 9 | Payme / Click / Uzum protokollari: avtorizatsiya, imzo, summa, idempotentlik, muddat, qaytarish, faqat sandbox |
+| botkit | 6 | telefon orqali bog'lanish, ikki farzandli ota-ona, til almashtirish, matn va rasm bilan uy vazifa, o'qituvchi ko'rinishi |
+| bot | 5 | grammY adapteri: klaviaturalar, takroriy yangilanishlar, faqat shaxsiy chat, callback'lar, outbox yetkazish |
+| seed | 4 | demo 14 kun ketma-ket × 3 oraliqda (+ yarim tun chegarasi): qoidalar, har bir rol ekranlari, demo hisoblari = haqiqiy hisob-kitob kodi |
+| contract | 4 | marshrutlar jadvali backend bilan aynan mos, faqat bitta ochiq metod, xato maydonni nomlaydi |
+| i18n | 3 | har bir satr uz / ru / en tillarida bir xil o'rinbosarlar bilan, barcha xabar shablonlari, HTML ekranlash |
+| web | 2 | interfeysdagi har bir matn kaliti mavjud |
+| **e2e** (Playwright) | **15 × 2 o'lcham** | ishga tushish va belgi, telefon ramkasi va to'liq ekran, «kelmadi» → ota-onaga xabar, o'qituvchi Mini App'i, eslatma, ish haqi, jadval to'qnashuvi, naqd to'lov va kvitansiya, lidlar voronkasi (tugma va sudrash), test generatori → o'quvchi testi, onlayn to'lov (Click sandbox) va protokol, bot orqali uy vazifa → baholash, sertifikat va ochiq tekshiruv, botda til almashtirish |
 
 Xossaviy testlar (fast-check) pulni taqsimlash, qayta hisoblash (oyning ikki yarmi doim to'liq summaga teng),
 chegirmalar, to'lovlarni hisoblarga taqsimlash, ish haqi va jadval to'qnashuvlarini (daqiqama-daqiqa «qo'pol» model

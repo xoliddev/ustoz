@@ -176,7 +176,19 @@ TEST_DATABASE_URL=postgres://… npm test     # DB, API and bot suites also agai
 npm run build:demo && PW_CHANNEL=chrome npm run e2e   # Playwright, 1440 px and 375 px
 ```
 
-<!-- TESTS-TABLE -->
+| Suite | Tests | What it covers |
+|---|---:|---|
+| core | 40 | money, proration, discounts, settlement, payroll, schedule conflicts (property tests), dates, initData HMAC, MD5, permissions, churn, funnel, test generator |
+| db | 12 | end-to-end service flows, RLS isolation on every tenant table, cross-centre attempts (PGlite; again on PostgreSQL 16 in CI) |
+| api | 12 | Telegram login (tampered / stale / wrong bot), permissions, validation, CORS, rate limits, Payme / Click / Uzum webhooks, Telegram webhook secret, env validation |
+| payments | 9 | Payme / Click / Uzum protocols: auth, signatures, amounts, idempotency, timeouts, reversal, sandbox-only guard |
+| botkit | 6 | phone linking, parent with two children, language switch, homework by text and photo, teacher view |
+| bot | 5 | grammY adapter: keyboards, update de-duplication, private chats only, callbacks, outbox delivery |
+| seed | 4 | the demo seeded on 14 consecutive days × 3 windows (+ midnight edge): invariants, every persona's screens, seeded invoices = live billing code |
+| contract | 4 | route table matches the backend exactly, only one public method, validation errors name the field |
+| i18n | 3 | every string in uz / ru / en with the same placeholders, every notification template rendered, HTML escaping |
+| web | 2 | every UI copy key exists |
+| **e2e** (Playwright) | **15 × 2 viewports** | boot + badge, phone frame vs full-screen, absence → parent bot message, teacher Mini App register, dashboard reminder, payroll, live schedule conflict, cash payment + receipt, lead funnel (buttons and drag), test generator → student takes test, online payment (Click sandbox) + protocol log, homework via bot → grading, certificate + public verification, bot language switch |
 
 Property tests (fast-check) cover money allocation, proration (two halves of a month always add up to the fee),
 discounts, settlement, payroll and schedule conflicts (checked against a brute-force minute-by-minute model).
