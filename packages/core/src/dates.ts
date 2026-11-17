@@ -140,4 +140,11 @@ export function dayMonth(d: IsoDate, locale = 'uz'): string {
   return `${day}-${MONTHS.uz![mo - 1]}`;
 }
 
+const MONTH_SHORT: Record<string, string[]> = {
+  uz: ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyn', 'Iyl', 'Avg', 'Sen', 'Okt', 'Noy', 'Dek'],
+  ru: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+  en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+};
+export const monthShort = (m: Month, locale = 'uz'): string => (MONTH_SHORT[locale] ?? MONTH_SHORT.uz!)[parseMonth(m).mo - 1]!;
+
 export const weekdayName = (d: IsoDate, locale = 'uz'): string => (WEEKDAYS[locale] ?? WEEKDAYS.uz!)[weekday(d) - 1]!;

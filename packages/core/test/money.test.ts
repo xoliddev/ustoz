@@ -121,3 +121,14 @@ describe('billing', () => {
     );
   });
 });
+
+describe('parseSom', () => {
+  it('parses user input without floats', async () => {
+    const { parseSom } = await import('../src');
+    expect(parseSom('1 250 000')).toBe(125_000_000);
+    expect(parseSom('0,1')).toBe(10);
+    expect(parseSom('19.99')).toBe(1999);
+    expect(parseSom('1e5')).toBeNull();
+    expect(parseSom('-5')).toBeNull();
+  });
+});

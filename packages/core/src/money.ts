@@ -78,3 +78,11 @@ export function formatMoneyShort(t: Tiyin, locale = 'uz'): string {
   if (abs >= 1e3) return `${fmt(s / 1e3)} ${locale === 'en' ? 'K' : locale === 'ru' ? 'тыс' : 'ming'}`;
   return formatMoney(t, locale);
 }
+
+/** "1 250 000", "1250000.5", "1 250 000,50" → tiyin, parsed as a string (no float rounding). Null if invalid. */
+export function parseSom(input: string): Tiyin | null {
+  const s = input.replace(/[\s ']/g, '').replace(',', '.');
+  const m = /^(\d{1,11})(?:\.(\d{1,2}))?$/.exec(s);
+  if (!m) return null;
+  return Number(m[1]) * 100 + Number((m[2] ?? '').padEnd(2, '0'));
+}

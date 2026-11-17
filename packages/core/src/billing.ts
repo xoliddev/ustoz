@@ -46,7 +46,9 @@ const ORDER: Record<DiscountKind, number> = { sibling: 0, prepaid: 1, custom: 2 
 
 export function lessonShares(fee: Tiyin, days: readonly number[], month: Month): Array<{ date: IsoDate; share: Tiyin }> {
   const dates = datesOn(days, monthStart(month), monthEnd(month));
-  const shares = allocate(fee, dates.map(() => 1));
+  // whole-so'm shares when the fee is in whole so'm (receipts stay free of tiyin), still summing exactly to the fee
+  const unit = fee % 100 === 0 ? 100 : 1;
+  const shares = allocate(fee / unit, dates.map(() => 1)).map((x) => x * unit);
   return dates.map((date, i) => ({ date, share: shares[i]! }));
 }
 
@@ -54,7 +56,9 @@ export function applyDiscounts(amount: Tiyin, discounts: readonly Discount[]): {
   let running = amount;
   const lines: DiscountLine[] = [];
   for (const d of [...discounts].sort((a, b) => ORDER[a.kind] - ORDER[b.kind])) {
-    const raw = d.bp ? percentOf(running, Math.min(10_000, Math.max(0, d.bp))) : Math.max(0, d.fixed ?? 0);
+    const bp = Math.min(10_000, Math.max(0, d.bp ?? 0));
+    // percentage discounts round to whole so'm when the amount is in whole so'm
+    const raw = d.bp ? (running % 100 === 0 ? percentOf(running / 100, bp) * 100 : percentOf(running, bp)) : Math.max(0, d.fixed ?? 0);
     const cut = Math.min(running, raw);
     if (cut <= 0) continue;
     running -= cut;

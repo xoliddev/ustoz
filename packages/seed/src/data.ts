@@ -44,17 +44,17 @@ export const COURSES = [
  * ages). The timetable is conflict-free by construction and a test checks it with core.findConflicts.
  */
 export const GROUPS = [
-  { key: 'a2-1', name: 'A2-14', course: 'gen-a2', teacher: 'dilnoza', room: 'oxford', days: [1, 3, 5], start: '09:00', end: '10:30', startedAgo: 75, size: 11 },
+  { key: 'a2-1', name: 'A2-14', course: 'gen-a2', teacher: 'dilnoza', room: 'oxford', days: [1, 3, 5], start: '09:00', end: '10:30', startedAgo: 105, size: 11 },
   { key: 'a2-2', name: 'A2-15', course: 'gen-a2', teacher: 'dilnoza', room: 'oxford', days: [1, 3, 5], start: '16:00', end: '17:30', startedAgo: 40, size: 10 },
   { key: 'pre-1', name: 'Pre-IELTS 7', course: 'pre-ielts', teacher: 'jasur', room: 'cambridge', days: [2, 4, 6], start: '10:00', end: '11:30', startedAgo: 62, size: 9 },
   { key: 'ielts-1', name: 'IELTS 6.5 · Morning', course: 'ielts', teacher: 'jasur', room: 'harvard', days: [1, 3, 5], start: '14:00', end: '16:00', startedAgo: 50, size: 12 },
   { key: 'ielts-2', name: 'IELTS 6.5 · Evening', course: 'ielts', teacher: 'aziza', room: 'harvard', days: [2, 4, 6], start: '18:00', end: '20:00', startedAgo: 33, size: 10 },
-  { key: 'kids-1', name: 'Kids Stars', course: 'kids', teacher: 'malika', room: 'cambridge', days: [1, 3, 5], start: '14:00', end: '15:00', startedAgo: 88, size: 10 },
+  { key: 'kids-1', name: 'Kids Stars', course: 'kids', teacher: 'malika', room: 'cambridge', days: [1, 3, 5], start: '14:00', end: '15:00', startedAgo: 140, size: 10 },
   { key: 'kids-2', name: 'Kids Rockets', course: 'kids', teacher: 'malika', room: 'stanford', days: [2, 4, 6], start: '15:00', end: '16:00', startedAgo: 20, size: 8 },
-  { key: 'py-1', name: 'Python P-9', course: 'python', teacher: 'sardor', room: 'itlab', days: [2, 4, 6], start: '14:00', end: '16:00', startedAgo: 95, size: 10 },
+  { key: 'py-1', name: 'Python P-9', course: 'python', teacher: 'sardor', room: 'itlab', days: [2, 4, 6], start: '14:00', end: '16:00', startedAgo: 165, size: 10 },
   { key: 'py-2', name: 'Python P-10', course: 'python', teacher: 'sardor', room: 'itlab', days: [1, 3, 5], start: '18:00', end: '20:00', startedAgo: 12, size: 7 },
   { key: 'react-1', name: 'React F-4', course: 'react', teacher: 'timur', room: 'stanford', days: [1, 3, 5], start: '18:30', end: '20:30', startedAgo: 58, size: 9 },
-  { key: 'math-1', name: 'DTM Matematika M-3', course: 'math', teacher: 'nodira', room: 'pifagor', days: [1, 3, 5], start: '08:30', end: '10:00', startedAgo: 70, size: 13 },
+  { key: 'math-1', name: 'DTM Matematika M-3', course: 'math', teacher: 'nodira', room: 'pifagor', days: [1, 3, 5], start: '08:30', end: '10:00', startedAgo: 120, size: 13 },
   { key: 'math-2', name: 'DTM Matematika M-4', course: 'math', teacher: 'nodira', room: 'pifagor', days: [2, 4, 6], start: '16:00', end: '17:30', startedAgo: 27, size: 11 },
   { key: 'rus-1', name: 'Rus tili R-2', course: 'rus', teacher: 'bekzod', room: 'oxford', days: [2, 4, 6], start: '17:00', end: '18:30', startedAgo: 45, size: 8 },
   { key: 'a2-new', name: 'A2-16 (yangi)', course: 'gen-a2', teacher: 'dilnoza', room: 'cambridge', days: [2, 4, 6], start: '08:00', end: '09:30', startedAgo: -6, size: 4 },

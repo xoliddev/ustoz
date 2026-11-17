@@ -1,1 +1,107 @@
-export const WEB: Record<string, [string, string, string]> = {};
+/** Web app copy: [uz, ru, en]. A web test checks every t('…') key used in the UI exists here. */
+import { WEB_MINI } from './web-mini';
+import { WEB_PAGES } from './web-pages';
+
+const WEB_SHELL: Record<string, [string, string, string]> = {
+  // shell
+  'demo.badge': ['Demo rejim — hammasi brauzeringizda ishlaydi', 'Демо-режим — всё работает в вашем браузере', 'Demo mode — runs entirely in your browser'],
+  'demo.reset': ['Demoni yangilash', 'Сбросить демо', 'Reset demo'],
+  'demo.viewAs': ['Kim sifatida', 'Войти как', 'View as'],
+  'demo.phoneOf': ['Telefon', 'Телефон', 'Phone'],
+  'demo.phoneHint': ['O\'qituvchi davomat belgilasa, ota-ona telefoniga darhol xabar keladi — sinab ko\'ring.', 'Учитель отмечает пропуск — родителю сразу приходит сообщение. Попробуйте.', 'When a teacher marks an absence, the parent\'s phone gets a message instantly — try it.'],
+  'demo.ready': ['Tayyor: {ms} ms ichida brauzerda ishga tushdi', 'Готово: запущено в браузере за {ms} мс', 'Ready: started in your browser in {ms} ms'],
+  'boot.loading': ['Ma\'lumotlar bazasi yuklanmoqda…', 'Загружаем базу данных…', 'Loading the database…'],
+  'boot.seeding': ['Bugungi kun uchun ma\'lumotlar tayyorlanmoqda…', 'Готовим данные на сегодня…', 'Preparing today\'s data…'],
+  'boot.error': ['Demo ishga tushmadi', 'Демо не запустилось', 'The demo failed to start'],
+  'boot.retry': ['Qayta urinish', 'Повторить', 'Try again'],
+  'role.director': ['Direktor', 'Директор', 'Director'],
+  'role.admin': ['Administrator', 'Администратор', 'Administrator'],
+  'role.teacher': ['O\'qituvchi', 'Учитель', 'Teacher'],
+  'role.student': ['O\'quvchi', 'Ученик', 'Student'],
+  'role.parent': ['Ota-ona', 'Родитель', 'Parent'],
+  'tab.app': ['Mini App', 'Mini App', 'Mini App'],
+  'tab.bot': ['Bot', 'Бот', 'Bot'],
+  'tab.panel': ['Panel', 'Панель', 'Panel'],
+  'tab.phone': ['Telegram', 'Telegram', 'Telegram'],
+  // nav
+  'nav.dashboard': ['Bosh sahifa', 'Главная', 'Dashboard'],
+  'nav.leads': ['Lidlar', 'Лиды', 'Leads'],
+  'nav.schedule': ['Jadval', 'Расписание', 'Schedule'],
+  'nav.students': ['O\'quvchilar', 'Ученики', 'Students'],
+  'nav.attendance': ['Davomat', 'Посещаемость', 'Attendance'],
+  'nav.billing': ['To\'lovlar', 'Оплаты', 'Payments'],
+  'nav.payroll': ['Ish haqi', 'Зарплата', 'Payroll'],
+  'nav.homework': ['Uy vazifa', 'Домашка', 'Homework'],
+  'nav.tests': ['Testlar', 'Тесты', 'Tests'],
+  'nav.certificates': ['Sertifikatlar', 'Сертификаты', 'Certificates'],
+  // common
+  'c.save': ['Saqlash', 'Сохранить', 'Save'],
+  'c.cancel': ['Bekor qilish', 'Отмена', 'Cancel'],
+  'c.back': ['Orqaga', 'Назад', 'Back'],
+  'c.close': ['Yopish', 'Закрыть', 'Close'],
+  'c.add': ['Qo\'shish', 'Добавить', 'Add'],
+  'c.search': ['Qidirish', 'Поиск', 'Search'],
+  'c.all': ['Hammasi', 'Все', 'All'],
+  'c.today': ['Bugun', 'Сегодня', 'Today'],
+  'c.month': ['Oy', 'Месяц', 'Month'],
+  'c.students': ['o\'quvchi', 'учеников', 'students'],
+  'c.groups': ['guruh', 'групп', 'groups'],
+  'c.lessons': ['dars', 'уроков', 'lessons'],
+  'c.empty': ['Hozircha hech narsa yo\'q', 'Пока ничего нет', 'Nothing here yet'],
+  'c.loading': ['Yuklanmoqda…', 'Загрузка…', 'Loading…'],
+  'c.error': ['Xatolik', 'Ошибка', 'Error'],
+  'c.saved': ['Saqlandi', 'Сохранено', 'Saved'],
+  'c.name': ['Ism familiya', 'Имя и фамилия', 'Full name'],
+  'c.phone': ['Telefon', 'Телефон', 'Phone'],
+  'c.course': ['Kurs', 'Курс', 'Course'],
+  'c.group': ['Guruh', 'Группа', 'Group'],
+  'c.teacher': ['O\'qituvchi', 'Учитель', 'Teacher'],
+  'c.room': ['Xona', 'Кабинет', 'Room'],
+  'c.branch': ['Filial', 'Филиал', 'Branch'],
+  'c.date': ['Sana', 'Дата', 'Date'],
+  'c.amount': ['Summa', 'Сумма', 'Amount'],
+  'c.debt': ['Qarz', 'Долг', 'Debt'],
+  'c.overdue': ['Muddati o\'tgan', 'Просрочено', 'Overdue'],
+  'c.paid': ['To\'langan', 'Оплачено', 'Paid'],
+  'c.unpaid': ['To\'lanmagan', 'Не оплачено', 'Unpaid'],
+  'c.partial': ['Qisman', 'Частично', 'Partly paid'],
+  'c.score': ['Ball', 'Балл', 'Score'],
+  'c.print': ['Chop etish', 'Печать', 'Print'],
+  'c.open': ['Ochish', 'Открыть', 'Open'],
+  'c.more': ['Batafsil', 'Подробнее', 'Details'],
+  'c.parent': ['Ota-ona', 'Родитель', 'Parent'],
+  'c.days': ['Kunlar', 'Дни', 'Days'],
+  'c.time': ['Vaqt', 'Время', 'Time'],
+  'c.start': ['Boshlanishi', 'Начало', 'Starts'],
+  'c.end': ['Tugashi', 'Конец', 'Ends'],
+  'c.capacity': ['Sig\'imi', 'Вместимость', 'Capacity'],
+  'c.fee': ['Oylik to\'lov', 'Оплата в месяц', 'Monthly fee'],
+  // dashboard
+  'd.title': ['Markaz holati', 'Состояние центра', 'Centre overview'],
+  'd.revenue': ['Shu oy tushum', 'Поступления за месяц', 'Collected this month'],
+  'd.revenueChart': ['Tushum va hisob — 6 oy', 'Поступления и начисления — 6 мес.', 'Collected vs billed — 6 months'],
+  'd.billed': ['Hisoblangan', 'Начислено', 'Billed'],
+  'd.collected': ['Tushgan', 'Поступило', 'Collected'],
+  'd.debts': ['Qarzdorlik', 'Задолженность', 'Outstanding'],
+  'd.debtors': ['{n} ta qarzdor', '{n} должников', '{n} debtors'],
+  'd.attendance': ['Davomat (7 kun)', 'Посещаемость (7 дн.)', 'Attendance (7 days)'],
+  'd.active': ['Faol o\'quvchilar', 'Активные ученики', 'Active students'],
+  'd.risk': ['Ketib qolish xavfi', 'Риск ухода', 'Churn risk'],
+  'd.riskHint': ['3+ dars qoldirgan yoki muddati o\'tgan qarzi bor', '3+ пропуска подряд или просроченный долг', '3+ missed lessons in a row or overdue fees'],
+  'd.load': ['O\'qituvchilar yuklamasi', 'Нагрузка учителей', 'Teacher load'],
+  'd.hoursWeek': ['soat/hafta', 'ч/нед', 'h/week'],
+  'd.leads': ['Lidlar: {open} ochiq, 7 kunda +{new}', 'Лиды: {open} открыто, +{new} за 7 дней', 'Leads: {open} open, +{new} in 7 days'],
+  'd.remind': ['Eslatma yuborish', 'Напомнить', 'Send reminder'],
+  'reason.missed_streak': ['{n} dars ketma-ket', '{n} пропуска подряд', '{n} missed in a row'],
+  'reason.overdue_debt': ['qarz {x}', 'долг {x}', 'owes {x}'],
+  'reason.low_attendance': ['davomat past', 'низкая посещаемость', 'low attendance'],
+};
+
+export const WEB: Record<string, [string, string, string]> = { ...WEB_SHELL, ...WEB_PAGES, ...WEB_MINI };
+
+/** Looks up a web string and fills {placeholders}; unknown keys come back as the key. */
+export function wt(locale: 'uz' | 'ru' | 'en', key: string, vars: Record<string, string | number> = {}): string {
+  const row = WEB[key];
+  const s = row ? row[locale === 'ru' ? 1 : locale === 'en' ? 2 : 0] : key;
+  return s.replace(/\{(\w+)\}/g, (_, k: string) => (k in vars ? String(vars[k]) : `{${k}}`));
+}

@@ -1,0 +1,31 @@
+/* Simulated Telegram chat */
+.chat { flex: 1; min-height: 0; height: 100%; display: flex; flex-direction: column; background: #dfe8d7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M10 10h4v4h-4zM40 30l3 3-3 3-3-3zM20 45a3 3 0 1 0 0 .1z' fill='%23c9d6bf' opacity='.55'/%3E%3C/svg%3E"); }
+.chat-head { flex: none; display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #fff; border-bottom: 1px solid #e6e6e6; }
+.chat-head b { display: block; font-size: 14px; }
+.chat-head small { color: #3390ec; font-size: 12px; }
+.chat-ava { width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 800; position: relative; overflow: hidden; }
+.chat-ava::after { content: ''; position: absolute; right: -5px; bottom: -5px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); }
+.chat-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: 10px 10px 4px; display: flex; flex-direction: column; gap: 6px; }
+.msg { position: relative; max-width: 86%; padding: 7px 10px 18px; border-radius: 14px; font-size: 14px; line-height: 1.38; box-shadow: 0 1px 1px rgb(0 0 0 / 0.08); word-wrap: break-word; }
+.msg.bot { align-self: flex-start; background: #fff; border-bottom-left-radius: 4px; }
+.msg.me { align-self: flex-end; background: #e1fec6; border-bottom-right-radius: 4px; }
+.msg.note { border-left: 3px solid var(--accent); }
+.msg-time { position: absolute; right: 8px; bottom: 3px; font-size: 10px; color: #8ba18a; }
+.msg.bot .msg-time { color: #a0a0a0; }
+.msg-photo { display: block; width: 160px; border-radius: 10px; margin-bottom: 4px; }
+.msg-inline { display: grid; gap: 4px; margin: 8px -6px -12px; }
+.msg-inline-row { display: flex; gap: 4px; }
+.msg-inline button { flex: 1; border: 0; border-radius: 8px; padding: 7px 6px; background: rgb(51 144 236 / 0.1); color: #2b7bc9; font-weight: 600; font-size: 13px; }
+.msg.typing { display: flex; gap: 4px; padding: 12px; }
+.msg.typing i { width: 6px; height: 6px; border-radius: 50%; background: #9aa; animation: blink 1s infinite; }
+.msg.typing i:nth-child(2) { animation-delay: 0.15s; } .msg.typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes blink { 50% { opacity: 0.25; transform: translateY(-2px); } }
+.chat-kb { flex: none; display: grid; gap: 5px; padding: 6px; background: #f1f1f1; border-top: 1px solid #e3e3e3; }
+.chat-kb-row { display: flex; gap: 5px; }
+.chat-kb button { flex: 1; min-height: 38px; border: 0; border-radius: 8px; background: #fff; font-weight: 600; font-size: 13px; box-shadow: 0 1px 0 rgb(0 0 0 / 0.12); padding: 4px; }
+.chat-kb button.webapp { background: #3390ec; color: #fff; }
+.chat-input { flex: none; display: flex; align-items: center; gap: 6px; padding: 6px 8px 22px; background: #fff; }
+.chat-input input { flex: 1; height: 38px; border: 0; border-radius: 19px; background: #f1f1f1; padding: 0 14px; outline: none; }
+.chat-attach, .chat-send { width: 38px; height: 38px; border: 0; border-radius: 50%; display: grid; place-items: center; background: transparent; color: #7b8a99; }
+.chat-send { color: #3390ec; }
+.chat-send:disabled { opacity: 0.4; }

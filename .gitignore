@@ -13,3 +13,4 @@ playwright-report/
 
 # demo snapshot, baked by apps/web/scripts/bake-demo.ts at build time
 apps/web/public/demo/
+.claude/
