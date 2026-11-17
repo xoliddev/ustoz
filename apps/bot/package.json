@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "exports": { ".": "./src/index.ts" },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@ustoz/botkit": "*",
     "@ustoz/core": "*",
     "@ustoz/db": "*",
-    "grammy": "^1.46.0"
+    "grammy": "^1.46.0",
+    "@ustoz/i18n": "*"
+  },
+  "devDependencies": {
+    "@ustoz/seed": "*"
   }
 }

@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "exports": { ".": "./src/index.ts" },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "start": "tsx src/main.ts",
@@ -12,7 +14,6 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^1.10.0",
     "@fastify/cors": "^11.4.3",
-    "@fastify/rate-limit": "^11.2.2",
     "@ustoz/botkit": "*",
     "@ustoz/contract": "*",
     "@ustoz/core": "*",
@@ -22,6 +23,12 @@
     "fastify": "^5.12.8",
     "jose": "^6.2.17",
     "pg": "^8.23.1",
-    "zod": "^4.6.7"
+    "zod": "^4.6.7",
+    "@ustoz/bot": "*",
+    "@ustoz/i18n": "*",
+    "grammy": "^1.46.0"
+  },
+  "devDependencies": {
+    "@ustoz/seed": "*"
   }
 }
