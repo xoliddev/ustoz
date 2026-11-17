@@ -1,0 +1,27 @@
+{
+  "name": "@ustoz/api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts",
+    "migrate": "tsx src/migrate.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.10.0",
+    "@fastify/cors": "^11.4.3",
+    "@fastify/rate-limit": "^11.2.2",
+    "@ustoz/botkit": "*",
+    "@ustoz/contract": "*",
+    "@ustoz/core": "*",
+    "@ustoz/db": "*",
+    "@ustoz/payments": "*",
+    "@ustoz/seed": "*",
+    "fastify": "^5.12.8",
+    "jose": "^6.2.17",
+    "pg": "^8.23.1",
+    "zod": "^4.6.7"
+  }
+}

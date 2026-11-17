@@ -1,0 +1,45 @@
+{
+  "name": "ustoz",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Ustoz — a learning-centre platform: web admin, Telegram bot and Mini App, with a live in-browser demo",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:unit": "vitest run --project core --project payments --project i18n --project contract --project botkit --project seed --project web",
+    "test:db": "vitest run --project db",
+    "test:api": "vitest run --project api --project bot",
+    "build:demo": "npm run build:demo -w @ustoz/web",
+    "dev": "npm run dev -w @ustoz/web",
+    "dev:api": "npm run dev -w @ustoz/api",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "@playwright/test": "^1.65.0",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "fast-check": "^4.10.2",
+    "globals": "^17.14.0",
+    "jsdom": "^31.0.1",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^5.1.0"
+  }
+}

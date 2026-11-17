@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+test-results/
+playwright-report/
+.DS_Store
+*.tsbuildinfo
+.vite/
+
+# demo snapshot, baked by apps/web/scripts/bake-demo.ts at build time
+apps/web/public/demo/

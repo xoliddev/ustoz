@@ -1,0 +1,8 @@
+{
+  "name": "@ustoz/db",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts", "./pglite": "./src/pglite.ts", "./pg": "./src/pg.ts" },
+  "dependencies": { "@ustoz/core": "*", "@electric-sql/pglite": "^0.5.16", "pg": "^8.23.1" }
+}
