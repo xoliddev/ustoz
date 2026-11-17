@@ -43,7 +43,7 @@ h3 { font-size: 14px; }
 p { margin: 0; }
 .muted { color: var(--muted); }
 .faint { color: var(--faint); }
-.num { font-variant-numeric: tabular-nums; }
+.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .row { display: flex; align-items: center; gap: 8px; }
 .row-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .spread { display: flex; align-items: center; justify-content: space-between; gap: 12px; }

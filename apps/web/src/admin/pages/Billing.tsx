@@ -12,7 +12,7 @@ import { ReceiptView } from './ReceiptView';
 const METHOD_COLOR: Record<string, string> = { cash: '#6c6b76', card: '#3f3cbb', transfer: '#0e7490', payme: '#00b8c8', click: '#0a6cff', uzum: '#7b2ff7' };
 
 export default function Billing() {
-  const { t, month: monthName, money, moneyShort } = useT();
+  const { t, month: monthName, moneyShort } = useT();
   const { role } = useRole();
   const api = useApi();
   const me = useData(role, 'me', {});
@@ -61,7 +61,6 @@ export default function Billing() {
           <div className="card kpi kpi-accent"><span className="kpi-label">{t('b.collected')}</span><div className="kpi-value"><Ticker value={ov.data.collected} format={moneyShort} /></div><span className="kpi-foot muted">{ov.data.payments} {t('st.payments').toLowerCase()}</span></div>
           <div className="card kpi kpi-data"><span className="kpi-label">{t('b.billed')}</span><div className="kpi-value"><Ticker value={ov.data.billed} format={moneyShort} /></div><span className="kpi-foot muted">{ov.data.invoices} {t('st.invoices').toLowerCase()}</span></div>
           <div className="card kpi kpi-ok row" style={{ gap: 14 }}><Ring value={rate} size={66} /><div><span className="kpi-label">{t('b.rate')}</span><p className="muted" style={{ fontSize: 12 }}>{t('b.collected')} / {t('b.billed')}</p></div></div>
-          <div className="card kpi"><span className="kpi-label">{t('b.byMethod')}</span><HBars rows={ov.data.byMethod.map((x) => ({ label: t(`m.${x.method}`), v: x.amount, color: METHOD_COLOR[x.method] }))} format={(v) => money(v)} /></div>
         </div>
       )}
       <div className="bill-grid">
@@ -88,6 +87,13 @@ export default function Billing() {
             </div>
           )}
         </section>
+        <div className="stack">
+        {ov.data && (
+          <section className="card">
+            <div className="card-title"><h2>{t('b.byMethod')}</h2></div>
+            <HBars rows={ov.data.byMethod.map((x) => ({ label: t(`m.${x.method}`), v: x.amount, color: METHOD_COLOR[x.method] }))} format={(v) => moneyShort(v)} />
+          </section>
+        )}
         <section className="card">
           <div className="card-title"><h2>{t('b.recent')}</h2></div>
           {ov.data?.recent.map((p) => (
@@ -98,6 +104,7 @@ export default function Billing() {
             </button>
           ))}
         </section>
+        </div>
       </div>
       <Modal open={!!receipt} title={t('b.receipt')} onClose={() => setReceipt(null)}>{receipt && <ReceiptView r={receipt} />}</Modal>
     </div>

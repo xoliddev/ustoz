@@ -27,7 +27,7 @@ export async function computeInvoice(tx: Sql, enrollmentId: string, month: Month
             exists (select 1 from student_parents sp1 join student_parents sp2 on sp2.parent_id = sp1.parent_id and sp2.student_id <> sp1.student_id
                     join enrollments e2 on e2.student_id = sp2.student_id
                     where sp1.student_id = e.student_id and e2.joined_on <= $2::date and (e2.left_on is null or e2.left_on >= $3::date)
-                      and (e2.joined_on, e2.student_id::text) < (e.joined_on, e.student_id::text)) as has_older_sibling
+                      and (e2.joined_on, e2.student_id) < (e.joined_on, e.student_id)) as has_older_sibling
      from enrollments e join groups g on g.id = e.group_id join centres c on c.id = e.centre_id where e.id = $1`,
     [enrollmentId, monthEnd(month), monthStart(month)],
   );

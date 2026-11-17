@@ -1,0 +1,27 @@
+# Local stack: PostgreSQL 16 + the Ustoz API.  docker compose up --build  →  http://localhost:4182/healthz
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ustoz
+      POSTGRES_PASSWORD: ustoz
+      POSTGRES_DB: ustoz
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ustoz']
+      interval: 3s
+      retries: 20
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://ustoz:ustoz@db:5432/ustoz
+      PORT: 4182
+    ports:
+      - '4182:4182'
+volumes:
+  pgdata:

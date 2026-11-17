@@ -1,0 +1,56 @@
+name: Pages
+
+# Publishes the browser-only demo (PGlite + the real services in a Web Worker, no backend) to
+# https://<owner>.github.io/ustoz/. `vite build --mode demo` sets base /ustoz/.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # bakes public/demo/snapshot.tar.gz (gitignored) with PGlite under Node, then `vite build --mode demo`
+      - run: npm run build:demo
+      - name: Add 404.html and .nojekyll
+        working-directory: apps/web/dist
+        run: |
+          test -f demo/snapshot.tar.gz
+          sed 's#href="\./#href="/ustoz/#g' index.html > 404.html
+          touch .nojekyll
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: apps/web/dist
+          include-hidden-files: true
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

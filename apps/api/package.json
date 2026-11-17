@@ -26,7 +26,8 @@
     "zod": "^4.6.7",
     "@ustoz/bot": "*",
     "@ustoz/i18n": "*",
-    "grammy": "^1.46.0"
+    "grammy": "^1.46.0",
+    "tsx": "^4.23.15"
   },
   "devDependencies": {
     "@ustoz/seed": "*"

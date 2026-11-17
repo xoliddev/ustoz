@@ -14,7 +14,7 @@
 .chip { border: 1px dashed var(--line-2); }
 
 /* KPIs + dashboard */
-.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
 .kpi { display: grid; gap: 6px; align-content: start; position: relative; overflow: hidden; }
 .kpi::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--line-2); }
 .kpi-accent::before { background: var(--accent); }
