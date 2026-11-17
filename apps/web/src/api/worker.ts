@@ -12,6 +12,9 @@ import { createPglite, createPgliteDatabase, wrapPglite } from '@ustoz/db/pglite
 import { createPaymentsPort, playSandboxPayment, SANDBOX_CONFIG } from '@ustoz/payments';
 import { CENTRE, DEMO_BOT_TOKEN, DEMO_CERT_SECRET, PERSONAS, seedStaticData, seedTimeline } from '@ustoz/seed';
 import type { BackendStatus, SerializedError } from './types';
+import initdbWasmUrl from '@electric-sql/pglite/initdb.wasm?url';
+import pgliteDataUrl from '@electric-sql/pglite/pglite.data?url';
+import pgliteWasmUrl from '@electric-sql/pglite/pglite.wasm?url';
 
 export type ToWorker =
   | { id: number; type: 'call'; as: Role; name: RouteName; input: unknown }
@@ -51,14 +54,29 @@ async function snapshot(): Promise<Blob | null> {
   }
 }
 
+/** PGlite's WASM modules and file bundle, fetched up front (PGlite would otherwise fetch them only after the snapshot). */
+async function engineAssets(): Promise<{ pgliteWasmModule?: WebAssembly.Module; initdbWasmModule?: WebAssembly.Module; fsBundle?: Blob }> {
+  try {
+    const [pgliteWasmModule, initdbWasmModule, fsBundle] = await Promise.all([
+      WebAssembly.compileStreaming(fetch(pgliteWasmUrl)),
+      WebAssembly.compileStreaming(fetch(initdbWasmUrl)),
+      fetch(pgliteDataUrl).then((r) => r.blob()),
+    ]);
+    return { pgliteWasmModule, initdbWasmModule, fsBundle };
+  } catch {
+    return {}; // let PGlite load them itself
+  }
+}
+
 async function boot(): Promise<Live> {
   const t0 = performance.now();
   try {
     setStatus({ phase: 'booting', progress: 0.1, error: undefined });
-    const tar = await snapshot();
+    // download the snapshot, the Postgres WASM and its file bundle in parallel instead of one after another
+    const [tar, assets] = await Promise.all([snapshot(), engineAssets()]);
     setStatus({ progress: 0.45 });
     let db;
-    if (tar) db = wrapPglite(await createPglite(undefined, { loadDataDir: tar }));
+    if (tar) db = wrapPglite(await createPglite(undefined, { loadDataDir: tar, ...assets }));
     else {
       db = await createPgliteDatabase();
       await migrate(db);
