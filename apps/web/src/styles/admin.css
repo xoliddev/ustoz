@@ -168,3 +168,6 @@
   .printable, .printable * { visibility: visible; }
   .printable { position: fixed; inset: 0; margin: auto; width: 640px; height: max-content; box-shadow: none; }
 }
+.spread > .ellipsis, .row > .ellipsis { min-width: 0; }
+.lead-card .badge { flex: none; }
+.kanban { grid-template-columns: repeat(5, minmax(210px, 1fr)); }

@@ -10,6 +10,8 @@
 .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .lang-select { height: 32px; border-radius: 9px; border: 1px solid var(--line-2); background: var(--surface); padding: 0 8px; font-weight: 600; }
 .role-switch .seg button { padding: 0 10px; }
+.seg-short { display: none; }
+@media (max-width: 860px) { .seg-short { display: inline; } }
 
 .desk { flex: 1; display: grid; grid-template-columns: 216px minmax(0, 1fr) auto; min-height: 0; }
 .desk.no-phone { grid-template-columns: 216px minmax(0, 1fr); }
@@ -76,16 +78,19 @@
 @media (min-width: 1280px) { .phone-toggle { display: none !important; } }
 @media (max-width: 860px) {
   .demo-badge .long { display: none; }
+  .seg-long { display: none; }
   .role-switch .seg button { padding: 0 7px; font-size: 12px; }
 }
 @media (max-width: 600px) {
   .topbar { flex-wrap: wrap; gap: 8px; padding: 8px 12px; }
   .topbar-right { width: 100%; margin: 0; justify-content: space-between; }
-  .role-switch { overflow-x: auto; max-width: calc(100vw - 120px); }
+  .role-switch { flex: 1; min-width: 0; }
+  .role-switch .seg { display: flex; width: 100%; }
+  .role-switch .seg button { flex: 1; padding: 0 2px; font-size: 12px; }
   .desk, .desk.no-phone, .desk.family { display: block; }
   .sidenav { display: none; }
   .content { padding: 14px 14px 80px; }
-  .phone-col, .desk.show-phone .phone-col { position: static; display: block; height: auto; padding: 0; background: none; border: 0; }
+  .desk .phone-col, .desk.show-phone .phone-col { position: static; display: block; justify-items: stretch; height: auto; padding: 0; background: none; border: 0; }
   .phone-col-head { padding: 10px 12px; }
   .family-side { display: none; }
   .phone-bare { height: calc(100vh - 160px); min-height: 560px; }

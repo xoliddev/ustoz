@@ -32,7 +32,7 @@ function Slip({ row, onEdit }: { row: PayrollRow; onEdit?(): void }) {
 }
 
 export default function Payroll() {
-  const { t, month: monthName, money } = useT();
+  const { t, month: monthName, moneyShort } = useT();
   const { role } = useRole();
   const me = useData(role, 'me', {});
   const [month, setMonth] = useState<string | null>(null);
@@ -59,7 +59,7 @@ export default function Payroll() {
         !report.data ? <Loading rows={6} /> : (
           <>
             <div className="kpis">
-              <div className="card kpi kpi-accent"><span className="kpi-label">{t('p.total')}</span><div className="kpi-value"><Ticker value={report.data.total} format={money} /></div></div>
+              <div className="card kpi kpi-accent"><span className="kpi-label">{t('p.total')}</span><div className="kpi-value"><Ticker value={report.data.total} format={moneyShort} /></div></div>
               <div className="card kpi kpi-data"><span className="kpi-label">{t('b.collected')}</span><div className="kpi-value"><Money v={report.data.collected} /></div></div>
               <div className="card kpi"><span className="kpi-label">{t('p.share')}</span><div className="kpi-value num">{report.data.collected ? `${Math.round((report.data.total * 100) / report.data.collected)}%` : '—'}</div></div>
             </div>

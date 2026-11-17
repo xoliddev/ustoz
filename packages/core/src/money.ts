@@ -73,9 +73,10 @@ export function formatMoneyShort(t: Tiyin, locale = 'uz'): string {
   const abs = Math.abs(s);
   const dec = locale === 'en' ? '.' : ',';
   const fmt = (v: number) => (Math.round(v * 10) / 10).toString().replace('.', dec);
-  if (abs >= 1e9) return `${fmt(s / 1e9)} ${locale === 'en' ? 'B' : locale === 'ru' ? 'млрд' : 'mlrd'}`;
-  if (abs >= 1e6) return `${fmt(s / 1e6)} ${locale === 'en' ? 'M' : locale === 'ru' ? 'млн' : 'mln'}`;
-  if (abs >= 1e3) return `${fmt(s / 1e3)} ${locale === 'en' ? 'K' : locale === 'ru' ? 'тыс' : 'ming'}`;
+  const cur = CUR[locale] ?? CUR.uz;
+  if (abs >= 1e9) return `${fmt(s / 1e9)} ${locale === 'en' ? 'B' : locale === 'ru' ? 'млрд' : 'mlrd'} ${cur}`;
+  if (abs >= 1e6) return `${fmt(s / 1e6)} ${locale === 'en' ? 'M' : locale === 'ru' ? 'млн' : 'mln'} ${cur}`;
+  if (abs >= 1e3) return `${fmt(s / 1e3)} ${locale === 'en' ? 'K' : locale === 'ru' ? 'тыс' : 'ming'} ${cur}`;
   return formatMoney(t, locale);
 }
 

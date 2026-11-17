@@ -49,7 +49,7 @@ export const GROUPS = [
   { key: 'pre-1', name: 'Pre-IELTS 7', course: 'pre-ielts', teacher: 'jasur', room: 'cambridge', days: [2, 4, 6], start: '10:00', end: '11:30', startedAgo: 62, size: 9 },
   { key: 'ielts-1', name: 'IELTS 6.5 · Morning', course: 'ielts', teacher: 'jasur', room: 'harvard', days: [1, 3, 5], start: '14:00', end: '16:00', startedAgo: 50, size: 12 },
   { key: 'ielts-2', name: 'IELTS 6.5 · Evening', course: 'ielts', teacher: 'aziza', room: 'harvard', days: [2, 4, 6], start: '18:00', end: '20:00', startedAgo: 33, size: 10 },
-  { key: 'kids-1', name: 'Kids Stars', course: 'kids', teacher: 'malika', room: 'cambridge', days: [1, 3, 5], start: '14:00', end: '15:00', startedAgo: 140, size: 10 },
+  { key: 'kids-1', name: 'Kids Stars', course: 'kids', teacher: 'malika', room: 'cambridge', days: [2, 4, 6], start: '14:00', end: '15:00', startedAgo: 140, size: 10 },
   { key: 'kids-2', name: 'Kids Rockets', course: 'kids', teacher: 'malika', room: 'stanford', days: [2, 4, 6], start: '15:00', end: '16:00', startedAgo: 20, size: 8 },
   { key: 'py-1', name: 'Python P-9', course: 'python', teacher: 'sardor', room: 'itlab', days: [2, 4, 6], start: '14:00', end: '16:00', startedAgo: 165, size: 10 },
   { key: 'py-2', name: 'Python P-10', course: 'python', teacher: 'sardor', room: 'itlab', days: [1, 3, 5], start: '18:00', end: '20:00', startedAgo: 12, size: 7 },

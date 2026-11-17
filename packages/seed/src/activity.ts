@@ -116,7 +116,7 @@ export async function seedActivity(tx: Sql, now: Date, today: IsoDate): Promise<
     const earliest = e.joinedOn > `${inv.month}-01` ? e.joinedOn : `${inv.month}-01`;
     if (earliest > today) continue;
     const current = inv.month === month;
-    if (current && (debtor(e) || r() > (day >= 10 ? 0.9 : 0.45))) continue;
+    if (current && (debtor(e) || e.student.name === 'Madina Karimova' || r() > (day >= 10 ? 0.9 : 0.45))) continue;
     if (!current && debtor(e) && inv.month === addMonths(month, -1)) continue;
     let payDay = addDays(earliest, Math.floor(r() * 7));
     if (payDay > today) payDay = today;

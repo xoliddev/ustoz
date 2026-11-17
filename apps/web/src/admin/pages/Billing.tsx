@@ -12,7 +12,7 @@ import { ReceiptView } from './ReceiptView';
 const METHOD_COLOR: Record<string, string> = { cash: '#6c6b76', card: '#3f3cbb', transfer: '#0e7490', payme: '#00b8c8', click: '#0a6cff', uzum: '#7b2ff7' };
 
 export default function Billing() {
-  const { t, month: monthName, money } = useT();
+  const { t, month: monthName, money, moneyShort } = useT();
   const { role } = useRole();
   const api = useApi();
   const me = useData(role, 'me', {});
@@ -58,8 +58,8 @@ export default function Billing() {
       </div>
       {!ov.data ? <Loading rows={4} /> : (
         <div className="kpis">
-          <div className="card kpi kpi-accent"><span className="kpi-label">{t('b.collected')}</span><div className="kpi-value"><Ticker value={ov.data.collected} format={money} /></div><span className="kpi-foot muted">{ov.data.payments} {t('st.payments').toLowerCase()}</span></div>
-          <div className="card kpi kpi-data"><span className="kpi-label">{t('b.billed')}</span><div className="kpi-value"><Ticker value={ov.data.billed} format={money} /></div><span className="kpi-foot muted">{ov.data.invoices} {t('st.invoices').toLowerCase()}</span></div>
+          <div className="card kpi kpi-accent"><span className="kpi-label">{t('b.collected')}</span><div className="kpi-value"><Ticker value={ov.data.collected} format={moneyShort} /></div><span className="kpi-foot muted">{ov.data.payments} {t('st.payments').toLowerCase()}</span></div>
+          <div className="card kpi kpi-data"><span className="kpi-label">{t('b.billed')}</span><div className="kpi-value"><Ticker value={ov.data.billed} format={moneyShort} /></div><span className="kpi-foot muted">{ov.data.invoices} {t('st.invoices').toLowerCase()}</span></div>
           <div className="card kpi kpi-ok row" style={{ gap: 14 }}><Ring value={rate} size={66} /><div><span className="kpi-label">{t('b.rate')}</span><p className="muted" style={{ fontSize: 12 }}>{t('b.collected')} / {t('b.billed')}</p></div></div>
           <div className="card kpi"><span className="kpi-label">{t('b.byMethod')}</span><HBars rows={ov.data.byMethod.map((x) => ({ label: t(`m.${x.method}`), v: x.amount, color: METHOD_COLOR[x.method] }))} format={(v) => money(v)} /></div>
         </div>

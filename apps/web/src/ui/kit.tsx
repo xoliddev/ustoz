@@ -1,6 +1,10 @@
 /** UI primitives: drawer, modal, toasts, empty/skeleton states, money, avatar, segmented control, number ticker. */
 import { animate, AnimatePresence, motion, useMotionValue, useTransform } from 'motion/react';
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
+
+/** Overlays render into <body> so no transformed ancestor can clip or re-anchor them. */
+const portal = (node: ReactNode) => (typeof document === 'undefined' ? node : createPortal(node, document.body));
 import { useT } from '../i18n';
 import { Icon } from './icons';
 
@@ -47,7 +51,7 @@ export function Drawer({ open, title, onClose, children }: { open: boolean; titl
     window.addEventListener('keydown', k);
     return () => window.removeEventListener('keydown', k);
   }, [open, onClose]);
-  return (
+  return portal(
     <AnimatePresence>
       {open && (
         <motion.div className="overlay" onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -67,7 +71,7 @@ export function Drawer({ open, title, onClose, children }: { open: boolean; titl
 
 export function Modal({ open, title, onClose, children }: { open: boolean; title: string; onClose(): void; children: ReactNode }) {
   const { t } = useT();
-  return (
+  return portal(
     <AnimatePresence>
       {open && (
         <motion.div className="modal-wrap" onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -136,12 +140,17 @@ export function Avatar({ name, size = 32, color }: { name: string; size?: number
   );
 }
 
-export function Seg<T extends string>({ value, options, onChange, label }: { value: T; options: Array<{ v: NoInfer<T>; label: string }>; onChange: (v: NoInfer<T>) => void; label?: string }) {
+export function Seg<T extends string>({ value, options, onChange, label }: { value: T; options: Array<{ v: NoInfer<T>; label: string; short?: string }>; onChange: (v: NoInfer<T>) => void; label?: string }) {
   return (
     <div className="seg" role="radiogroup" aria-label={label}>
       {options.map((o) => (
-        <button key={o.v} type="button" role="radio" aria-checked={o.v === value} className={o.v === value ? 'on' : ''} onClick={() => onChange(o.v)}>
-          {o.label}
+        <button key={o.v} type="button" role="radio" aria-checked={o.v === value} aria-label={o.short ? o.label : undefined} className={o.v === value ? 'on' : ''} onClick={() => onChange(o.v)}>
+          {o.short ? (
+            <>
+              <span className="seg-long">{o.label}</span>
+              <span className="seg-short" aria-hidden="true">{o.short}</span>
+            </>
+          ) : o.label}
         </button>
       ))}
     </div>

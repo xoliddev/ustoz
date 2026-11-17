@@ -7,7 +7,7 @@ import { Icon } from '../../ui/icons';
 import { Avatar, ErrorBox, Loading, Ticker, useErrorToast, useToast } from '../../ui/kit';
 
 export default function Dashboard() {
-  const { t, money, moneyShort, month, monthShort, l } = useT();
+  const { t, moneyShort, month, monthShort, l } = useT();
   const { role } = useRole();
   const { data: d, error, reload } = useData(role, 'dashboard.summary', {});
   const { run, busy } = useAction();
@@ -26,8 +26,8 @@ export default function Dashboard() {
   };
   const reasonText = (r: string, s: (typeof d.risk)[number]) => (r === 'missed_streak' ? t('reason.missed_streak', { n: s.streak }) : r === 'overdue_debt' ? t('reason.overdue_debt', { x: moneyShort(s.overdue) }) : t(`reason.${r}`));
   const kpis = [
-    { key: 'rev', label: t('d.revenue'), value: <Ticker value={thisMonth.collected} format={(v) => money(v)} />, foot: `${t('d.billed')}: ${moneyShort(thisMonth.billed)}`, icon: 'wallet' as const, tone: 'accent' },
-    { key: 'debt', label: t('d.debts'), value: <Ticker value={d.debt} format={(v) => money(v)} />, foot: t('d.debtors', { n: d.debtors }), icon: 'alert' as const, tone: 'bad' },
+    { key: 'rev', label: t('d.revenue'), value: <Ticker value={thisMonth.collected} format={moneyShort} />, foot: `${t('d.billed')}: ${moneyShort(thisMonth.billed)}`, icon: 'wallet' as const, tone: 'accent' },
+    { key: 'debt', label: t('d.debts'), value: <Ticker value={d.debt} format={moneyShort} />, foot: t('d.debtors', { n: d.debtors }), icon: 'alert' as const, tone: 'bad' },
     { key: 'att', label: t('d.attendance'), value: <span className="num">{d.attendance.rate === null ? '—' : `${Math.round(d.attendance.rate * 100)}%`}</span>, foot: d.attendance.weeks.map((w) => (w.rate === null ? '—' : `${Math.round(w.rate * 100)}%`)).join(' · '), icon: 'attendance' as const, tone: 'ok' },
     { key: 'act', label: t('d.active'), value: <Ticker value={d.activeStudents} format={(v) => String(v)} />, foot: t('d.leads', { open: d.leads.open, new: d.leads.new7 }), icon: 'students' as const, tone: 'data' },
   ];

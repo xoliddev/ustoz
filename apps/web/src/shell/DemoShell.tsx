@@ -82,7 +82,7 @@ export function DemoShell() {
           </span>
           <div className="topbar-right">
             <div className="role-switch" data-testid="role-switch">
-              <Seg label={t('demo.viewAs')} value={role} onChange={setRole} options={ROLES.map((r) => ({ v: r, label: t(`role.${r}`) }))} />
+              <Seg label={t('demo.viewAs')} value={role} onChange={setRole} options={ROLES.map((r) => ({ v: r, label: t(`role.${r}`), short: t(`role.short.${r}`) }))} />
             </div>
             <select className="lang-select" aria-label="Language" value={l} onChange={(e) => setL(e.target.value as Locale)}>
               <option value="uz">UZ</option>
@@ -137,9 +137,9 @@ export function DemoShell() {
         ) : (
           <div className="desk family">
             <div className="family-side">
-              <span className="badge badge-accent">{t(`role.${role}`)}</span>
+              <span className="badge badge-accent" style={{ justifySelf: 'start' }}>{t(`role.${role}`)}</span>
               <h1>{t('mini.hello', { name: role === 'student' ? 'Aziz' : 'Shoira' })}</h1>
-              <p className="muted">{t('demo.phoneHint')}</p>
+              <p className="muted">{t('demo.familyHint')}</p>
             </div>
             <TelegramPane staffRole={role} />
             <div className="family-right" />
