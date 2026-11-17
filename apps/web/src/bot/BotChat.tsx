@@ -47,7 +47,7 @@ const hhmm = (at: number) => {
 };
 
 export function BotChat({ persona }: { persona: Role }) {
-  const { t, l } = useT();
+  const { t } = useT();
   const api = useApi();
   const feed = useData(persona, 'notifications.mine', {});
   const [convo, setConvo] = useState<Msg[]>([]);
@@ -83,9 +83,9 @@ export function BotChat({ persona }: { persona: Role }) {
   }, []);
 
   const messages = useMemo(() => {
-    const notes: Msg[] = (feed.data ?? []).map((n) => ({ id: n.id, at: Date.parse(n.createdAt), from: 'bot', html: renderNotification(n.template, n.params, n.locale === 'ru' || n.locale === 'en' ? n.locale : l), notification: true }));
+    const notes: Msg[] = (feed.data ?? []).map((n) => ({ id: n.id, at: Date.parse(n.createdAt), from: 'bot', html: renderNotification(n.template, n.params, n.locale === 'ru' || n.locale === 'en' ? n.locale : 'uz'), notification: true }));
     return [...notes, ...convo].sort((a, b) => a.at - b.at);
-  }, [feed.data, convo, l]);
+  }, [feed.data, convo]);
 
   useEffect(() => {
     scroller.current?.scrollTo({ top: scroller.current.scrollHeight, behavior: 'smooth' });
