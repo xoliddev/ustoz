@@ -22,7 +22,9 @@
     "build:demo": "npm run build:demo -w @ustoz/web",
     "dev": "npm run dev -w @ustoz/web",
     "dev:api": "npm run dev -w @ustoz/api",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "shots": "node scripts/shots.mjs",
+    "measure": "node scripts/measure-first-visit.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.0",

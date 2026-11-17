@@ -140,6 +140,15 @@ export function DemoShell() {
               <span className="badge badge-accent" style={{ justifySelf: 'start' }}>{t(`role.${role}`)}</span>
               <h1>{t('mini.hello', { name: role === 'student' ? 'Aziz' : 'Shoira' })}</h1>
               <p className="muted">{t('demo.familyHint')}</p>
+              <div className="try-card">
+                <b>{t('try.title')}</b>
+                {[1, 2, 3].map((n) => (
+                  <motion.div key={`${role}-${n}`} className="try-item" initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 + n * 0.08 }}>
+                    <span className="try-num">{n}</span>
+                    <span>{t(`try.${role}.${n}`)}</span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
             <TelegramPane staffRole={role} />
             <div className="family-right" />
