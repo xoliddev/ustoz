@@ -52,3 +52,37 @@ export function trimWal(tar: Uint8Array, walFile: string, lsn: string): { tar: U
   }
   return { tar: out, dropped };
 }
+
+/**
+ * Drops the data files of the template databases (template1 = base/1, template0 = base/4): the demo only ever
+ * connects to `postgres` (base/5) and never runs CREATE DATABASE. Directory entries and PG_VERSION stay, so the
+ * catalog still matches the layout. The caller verifies the result opens and falls back otherwise.
+ */
+export function dropTemplateDbs(tar: Uint8Array): { tar: Uint8Array; dropped: number } {
+  const parts: Uint8Array[] = [];
+  let dropped = 0;
+  let off = 0;
+  while (off + BLOCK <= tar.length) {
+    const header = tar.subarray(off, off + BLOCK);
+    if (header.every((x) => x === 0)) break;
+    const name = readStr(header, 345, 155) ? `${readStr(header, 345, 155)}/${readStr(header, 0, 100)}` : readStr(header, 0, 100);
+    const size = readOctal(header, 124, 12);
+    const span = BLOCK + Math.ceil(size / BLOCK) * BLOCK;
+    const isFile = header[156] === 0x30 || header[156] === 0;
+    if (isFile && /(^|\/)base\/(1|4)\/(?!PG_VERSION$)[^/]+$/.test(name)) {
+      dropped++;
+      off += span;
+      continue;
+    }
+    parts.push(tar.slice(off, off + span));
+    off += span;
+  }
+  parts.push(new Uint8Array(BLOCK * 2));
+  const out = new Uint8Array(parts.reduce((n, p) => n + p.length, 0));
+  let at = 0;
+  for (const p of parts) {
+    out.set(p, at);
+    at += p.length;
+  }
+  return { tar: out, dropped };
+}

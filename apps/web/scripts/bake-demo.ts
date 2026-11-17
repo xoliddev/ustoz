@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { migrate } from '@ustoz/db';
 import { createPglite, wrapPglite } from '@ustoz/db/pglite';
 import { hasTimeline, isSeeded, seedStaticData, seedTimeline } from '@ustoz/seed';
-import { trimWal } from './trim-wal';
+import { dropTemplateDbs, trimWal } from './trim-wal';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const out = resolve(here, '../public/demo/snapshot.tar.gz');
@@ -43,7 +43,12 @@ async function verify(gz: Uint8Array): Promise<boolean> {
 }
 
 const trimmed = trimWal(raw, pos!.file, pos!.lsn);
-let gz = gzipSync(trimmed.tar, { level: 9 });
+const slim = dropTemplateDbs(trimmed.tar);
+let gz = gzipSync(slim.tar, { level: 9 });
+if (!(await verify(gz))) {
+  console.warn('snapshot without template databases did not open, keeping them');
+  gz = gzipSync(trimmed.tar, { level: 9 });
+}
 if (!(await verify(gz))) {
   console.warn('trimmed snapshot did not open, shipping the full dump');
   gz = gzipSync(raw, { level: 9 });
@@ -51,5 +56,5 @@ if (!(await verify(gz))) {
 }
 mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, gz);
-console.log(`demo snapshot → public/demo/snapshot.tar.gz (${Math.round(statSync(out).size / 1024)} KB, WAL segments dropped: ${trimmed.dropped.length}) in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
+console.log(`demo snapshot → public/demo/snapshot.tar.gz (${Math.round(statSync(out).size / 1024)} KB, WAL segments dropped: ${trimmed.dropped.length}, template files dropped: ${slim.dropped}) in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 process.exit(0);
